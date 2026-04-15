@@ -380,7 +380,9 @@ def save_to_csv(locations, filepath):
 
     fieldnames = ["location_name", "street_address", "city", "state", "zip_code"]
 
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    dirpath = os.path.dirname(filepath)
+    if dirpath:
+        os.makedirs(dirpath, exist_ok=True)
 
     with open(filepath, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames)
@@ -402,7 +404,9 @@ def save_to_json(locations, filepath):
         logger.warning("No locations to save to JSON")
         return
 
-    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    dirpath = os.path.dirname(filepath)
+    if dirpath:
+        os.makedirs(dirpath, exist_ok=True)
 
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(locations, f, indent=2, ensure_ascii=False)
